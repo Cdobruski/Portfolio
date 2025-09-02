@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfólio de Desenvolvimento</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Fira Code', monospace;
+            background-color: #050505;
+            color: #f5f5f5;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            max-width: 96rem;
+            margin: auto;
+        }
+        @media (min-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr 3fr;
+            }
+        }
+        .sidebar {
+            background-color: #0a0a0a;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 2rem;
+            height: fit-content;
+        }
+        .main-content {
+            background-color: #0a0a0a;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .section-header {
+            border-bottom: 2px solid #0f0f0f;
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .effect-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            height: 12rem;
+            background-color: #010101;
+            border: 1px solid #000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        .effect-container h3 {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            z-index: 10;
+        }
+        .particle {
+            position: absolute;
+            background: #0d0d0e; 
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .ring {
+            position: absolute;
+            border: 2px solid;
+            border-radius: 50%;
+            animation: expand 1.5s forwards;
+            opacity: 0;
+        }
+        @keyframes expand {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+        button:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200 p-8">
+
+    <div class="container">
+        <aside class="sidebar">
+            <h2 class="text-3xl font-bold mb-4 text-zinc-100">Cauê Cardoso</h2>
+            <p class="text-sm text-zinc-400 mb-6">Engenheiro e Dev de Software</p>
+            <nav class="space-y-4">
+                <a href="#habilidades" class="block text-zinc-300 hover:text-white transition-colors">Habilidades</a>
+                <a href="#frontend" class="block text-zinc-300 hover:text-white transition-colors">Frontend</a>
+                <a href="#contato" class="block text-zinc-300 hover:text-white transition-colors">Contato</a>
+            </nav>
+            <div class="mt-8 text-sm text-zinc-400">
+                <p><strong>Telefone:</strong> (41) 98859-5733</p>
+                <p><strong>Email:</strong> caudobruski@gmail.com</p>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="mb-8">
+                <h1 class="text-4xl font-bold text-zinc-100">Portfólio de Desenvolvimento</h1>
+                <p class="mt-2 text-zinc-400">Exemplos de minhas habilidades em diversas linguagens de programação.</p>
+            </header>
+
+            <section id="habilidades" class="mb-8">
+                <h2 class="text-2xl font-semibold mb-4 section-header text-zinc-100">Habilidades Técnicas e Interação</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                   
+                    <div class="flex flex-col items-center bg-zinc-950 p-6 rounded-lg border border-neutral-900">
+                        <h3 class="text-xl font-medium mb-4 text-blue-400">JavaScript Interativo</h3>
+                        <p class="text-zinc-400 text-center mb-4">Manipulação do DOM. Clique para aumentar o contador.</p>
+                        
+                        <div class="flex flex-col items-center space-y-4">
+                            <button id="counter-btn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                                Clique-me!
+                            </button>
+                            <button id="counter-btn-10x" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors">
+                                Contar 10x!
+                            </button>
+                            <span id="counter-display" class="text-2xl font-bold text-zinc-100">0</span>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="flex flex-col items-center bg-zinc-950 p-6 rounded-lg border border-neutral-900">
+                        <h3 class="text-xl font-medium mb-4 text-purple-400">PHP no Backend</h3>
+                        <p class="text-zinc-400 text-center mb-4">Realiza uma adição visual com partículas.</p>
+                        <div class="flex flex-col items-center space-y-4 w-full">
+                            <input type="number" id="php-num1" placeholder="Número 1" class="w-full p-2 rounded bg-zinc-800 text-white placeholder-zinc-500 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            <input type="number" id="php-num2" placeholder="Número 2" class="w-full p-2 rounded bg-zinc-800 text-white placeholder-zinc-500 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            <button id="php-btn" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors w-full">
+                                Somar e Visualizar
+                            </button>
+                        </div>
+                    </div>
+
+                    
+                    <div class="flex flex-col items-center bg-zinc-950 p-6 rounded-lg border border-neutral-900">
+                        <h3 class="text-xl font-medium mb-4 text-green-400">Python no Backend</h3>
+                        <p class="text-zinc-400 text-center mb-4">Uma calculadora interativa com efeito visual.</p>
+                        <div class="flex flex-col items-center space-y-4 w-full">
+                            <input type="number" id="python-num1" placeholder="Número 1" class="w-full p-2 rounded bg-zinc-800 text-white placeholder-zinc-500 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-green-500">
+                            <input type="text" id="python-op" placeholder="Operador (+, -, *, /)" class="w-full p-2 rounded bg-zinc-800 text-white placeholder-zinc-500 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-green-500">
+                            <input type="number" id="python-num2" placeholder="Número 2" class="w-full p-2 rounded bg-zinc-800 text-white placeholder-zinc-500 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-green-500">
+                            <button id="python-btn" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors w-full">
+                                Calcular
+                            </button>
+                        </div>
+                    </div>
+
+                    
+                    <div class="flex flex-col items-center bg-zinc-950 p-6 rounded-lg border border-neutral-900">
+                        <h3 class="text-xl font-medium mb-4 text-fuchsia-400">Paleta de Cores Interativa</h3>
+                        <p class="text-zinc-400 text-center mb-4">Ajuste a barra para visualizar a transição de cores. O hex muda em tempo real.</p>
+                        <div id="color-block" class="w-full h-24 rounded-lg mb-4" style="background-color: #0a0a0a;"></div>
+                        <input type="range" id="color-slider" min="0" max="100" value="0" class="w-full h-2 bg-zinc-700 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-fuchsia-500">
+                        <span id="color-hex" class="mt-2 text-sm text-zinc-400">#0a0a0a</span>
+                    </div>
+
+                </div>
+
+                
+                <div id="php-effect-container" class="effect-container mt-6 hidden">
+                    <p class="text-zinc-400">Processando dados...</p>
+                </div>
+                <div id="python-effect-container" class="effect-container mt-6 hidden">
+                    <p class="text-zinc-400">Executando...</p>
+                </div>
+            </section>
+            
+            <section id="frontend">
+                <h2 class="text-2xl font-semibold mb-4 section-header text-zinc-100">Linguagens de Frontend</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-zinc-950 p-6 rounded-lg border border-neutral-900">
+                        <h3 class="text-xl font-medium mb-2 text-red-400">HTML (Estrutura)</h3>
+                        <p class="text-zinc-400">
+                            Todo o conteúdo, títulos, botões e seções são estruturados com HTML. Ele é o esqueleto fundamental de qualquer site.
+                        </p>
+                    </div>
+                    <div class="bg-zinc-950 p-6 rounded-lg border border-neutral-900">
+                        <h3 class="text-xl font-medium mb-2 text-cyan-400">CSS (Estilo)</h3>
+                        <p class="text-zinc-400">
+                            A aparência visual, cores, fontes, espaçamento e o layout responsivo são controlados pelo CSS. Usamos o framework Tailwind CSS para criar este design minimalista.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contato" class="mt-8 text-center text-zinc-400">
+                <p class="text-lg">Para mais informações, entre em contato através dos dados na barra lateral.</p>
+            </section>
+
+        </main>
+    </div>
+    
+    <footer class="mt-8 text-center text-zinc-500 text-sm">
+        &copy; 2024 Portfólio de Cauê Cardoso Dobruski. Todos os direitos reservados.
+    </footer>
+
+    <script>
+        const counterButton = document.getElementById('counter-btn');
+        const counterButton10x = document.getElementById('counter-btn-10x');
+        const counterDisplay = document.getElementById('counter-display');
+        let count = 0;
+        
+        counterButton.addEventListener('click', () => {
+            count++;
+            counterDisplay.textContent = count;
+        });
+
+        counterButton10x.addEventListener('click', () => {
+            count += 10;
+            counterDisplay.textContent = count;
+        });
+
+        const phpButton = document.getElementById('php-btn');
+        const phpEffectContainer = document.getElementById('php-effect-container');
+        
+        phpButton.addEventListener('click', () => {
+            const num1 = parseFloat(document.getElementById('php-num1').value);
+            const num2 = parseFloat(document.getElementById('php-num2').value);
+
+            if (isNaN(num1) || isNaN(num2)) {
+                phpEffectContainer.classList.remove('hidden');
+                phpEffectContainer.innerHTML = '<p class="text-red-400">Por favor, insira dois números válidos.</p>';
+                setTimeout(() => { phpEffectContainer.classList.add('hidden'); }, 2000);
+                return;
+            }
+
+            const result = num1 + num2;
+
+            phpEffectContainer.classList.remove('hidden');
+            phpEffectContainer.innerHTML = `<p class="text-zinc-400">Somando ${num1} e ${num2}...</p>`;
+            
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                const size = Math.random() * 8 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                phpEffectContainer.appendChild(particle);
+
+                setTimeout(() => {
+                    particle.style.opacity = '1';
+                    particle.style.transform = `translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px) scale(1)`;
+                    setTimeout(() => {
+                        particle.style.opacity = '0';
+                    }, 500);
+                }, 10);
+            }
+
+            setTimeout(() => {
+                phpEffectContainer.innerHTML = `<p class="text-green-400 text-2xl font-bold">${result}</p>`;
+                setTimeout(() => {
+                    phpEffectContainer.classList.add('hidden');
+                    phpEffectContainer.innerHTML = '';
+                }, 2000);
+            }, 1500);
+        });
+
+        const pythonButton = document.getElementById('python-btn');
+        const pythonEffectContainer = document.getElementById('python-effect-container');
+
+        pythonButton.addEventListener('click', () => {
+            const num1 = parseFloat(document.getElementById('python-num1').value);
+            const op = document.getElementById('python-op').value;
+            const num2 = parseFloat(document.getElementById('python-num2').value);
+            let result;
+
+            if (isNaN(num1) || isNaN(num2) || !['+', '-', '*', '/'].includes(op)) {
+                pythonEffectContainer.classList.remove('hidden');
+                pythonEffectContainer.innerHTML = '<p class="text-red-400">Entrada inválida. Tente novamente.</p>';
+                setTimeout(() => { pythonEffectContainer.classList.add('hidden'); }, 2000);
+                return;
+            }
+
+            switch (op) {
+                case '+': result = num1 + num2; break;
+                case '-': result = num1 - num2; break;
+                case '*': result = num1 * num2; break;
+                case '/': result = num1 / num2; break;
+                default: result = "Erro";
+            }
+
+            pythonEffectContainer.classList.remove('hidden');
+            pythonEffectContainer.innerHTML = `<p class="text-zinc-400">Calculando ${num1} ${op} ${num2}...</p>`;
+            
+            const colors = ['#f87171', '#facc15', '#4ade80', '#22d3ee', '#818cf8', '#d8b4fe'];
+            for (let i = 0; i < 5; i++) {
+                const ring = document.createElement('div');
+                ring.className = 'ring';
+                ring.style.borderColor = colors[i % colors.length];
+                ring.style.width = `${i * 20 + 20}px`;
+                ring.style.height = `${i * 20 + 20}px`;
+                ring.style.opacity = '0.5';
+                pythonEffectContainer.appendChild(ring);
+            }
+
+            setTimeout(() => {
+                pythonEffectContainer.innerHTML = `<p class="text-green-400 text-2xl font-bold">Resultado: ${result}</p>`;
+                setTimeout(() => {
+                    pythonEffectContainer.classList.add('hidden');
+                    pythonEffectContainer.innerHTML = '';
+                }, 2000);
+            }, 2000);
+        });
+
+        const colorSlider = document.getElementById('color-slider');
+        const colorBlock = document.getElementById('color-block');
+        const colorHex = document.getElementById('color-hex');
+
+        const toHex = (c) => {
+            const hex = Math.round(c).toString(16);
+            return hex.length === 1 ? "0" + hex : hex;
+        }
+
+        colorSlider.addEventListener('input', (event) => {
+            const value = event.target.value;
+            let startColor, endColor;
+
+            if (value <= 25) {
+                startColor = [10, 10, 10]; 
+                endColor = [139, 92, 246]; 
+                const percentage = (value / 25);
+                const newR = startColor[0] + (endColor[0] - startColor[0]) * percentage;
+                const newG = startColor[1] + (endColor[1] - startColor[1]) * percentage;
+                const newB = startColor[2] + (endColor[2] - startColor[2]) * percentage;
+                const hexColor = `#${toHex(newR)}${toHex(newG)}${toHex(newB)}`;
+                colorBlock.style.backgroundColor = hexColor;
+                colorHex.textContent = hexColor;
+            } else if (value <= 50) {
+                startColor = [139, 92, 246];
+                endColor = [34, 211, 238]; 
+                const percentage = (value - 25) / 25;
+                const newR = startColor[0] + (endColor[0] - startColor[0]) * percentage;
+                const newG = startColor[1] + (endColor[1] - startColor[1]) * percentage;
+                const newB = startColor[2] + (endColor[2] - startColor[2]) * percentage;
+                const hexColor = `#${toHex(newR)}${toHex(newG)}${toHex(newB)}`;
+                colorBlock.style.backgroundColor = hexColor;
+                colorHex.textContent = hexColor;
+            } else if (value <= 75) {
+                startColor = [34, 211, 238]; 
+                endColor = [74, 222, 128]; 
+                const percentage = (value - 50) / 25;
+                const newR = startColor[0] + (endColor[0] - startColor[0]) * percentage;
+                const newG = startColor[1] + (endColor[1] - startColor[1]) * percentage;
+                const newB = startColor[2] + (endColor[2] - startColor[2]) * percentage;
+                const hexColor = `#${toHex(newR)}${toHex(newG)}${toHex(newB)}`;
+                colorBlock.style.backgroundColor = hexColor;
+                colorHex.textContent = hexColor;
+            } else {
+                startColor = [74, 222, 128]; 
+                endColor = [252, 165, 165]; 
+                const percentage = (value - 75) / 25;
+                const newR = startColor[0] + (endColor[0] - startColor[0]) * percentage;
+                const newG = startColor[1] + (endColor[1] - startColor[1]) * percentage;
+                const newB = startColor[2] + (endColor[2] - startColor[2]) * percentage;
+                const hexColor = `#${toHex(newR)}${toHex(newG)}${toHex(newB)}`;
+                colorBlock.style.backgroundColor = hexColor;
+                colorHex.textContent = hexColor;
+            }
+        });
+    </script>
+</body>
+</html>
