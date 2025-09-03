@@ -50,7 +50,7 @@
             border-radius: 0.5rem;
             height: 12rem;
             background-color: #010101;
-            border: 1px solid #000000;
+            border: 1px solid #060607;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -64,12 +64,11 @@
         }
         .particle {
             position: absolute;
-            background: #0d0d0e; 
+            background: #a855f7;
             border-radius: 50%;
             pointer-events: none;
             opacity: 0;
             transform: scale(0);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .ring {
             position: absolute;
@@ -91,13 +90,114 @@
         button:active {
             transform: scale(0.98);
         }
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+        }
+        .carousel-wrapper {
+            display: flex;
+            gap: 1.5rem;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+        }
+        .carousel-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+        .carousel-item {
+            min-width: 100%;
+            scroll-snap-align: start;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #0a0a0a;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid #1a1a1a;
+        }
+        @media (min-width: 768px) {
+            .carousel-item {
+                min-width: calc(50% - 0.75rem);
+            }
+        }
+        @media (min-width: 1024px) {
+            .carousel-item {
+                min-width: calc(33.333% - 1rem);
+            }
+        }
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 0.5rem;
+            border-radius: 50%;
+            z-index: 20;
+            font-size: 1.5rem;
+            line-height: 1;
+            display: block;
+        }
+        .carousel-btn-left {
+            left: 0.5rem;
+        }
+        .carousel-btn-right {
+            right: 0.5rem;
+        }
+        #currency-response {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .floating-card {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 100;
+            background-color: #1a1a1a;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 400px;
+            border: 1px solid #2a2a2a;
+        }
+        .floating-card .drag-handle {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 20px;
+            height: 20px;
+            background-color: #000;
+            border-radius: 50%;
+            cursor: grab;
+        }
+        .floating-card .close-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #f5f5f5;
+        }
     </style>
 </head>
-<body class="bg-gray-900 text-gray-200 p-8">
+<body class="bg-gray-900 text-gray-200 p-4 sm:p-8">
 
     <div class="container">
         <aside class="sidebar">
-            <h2 class="text-3xl font-bold mb-4 text-zinc-100">Cauê Cardoso</h2>
+            <h2 class="text-3xl font-bold mb-4 text-zinc-100">Cauê Dobruski</h2>
             <p class="text-sm text-zinc-400 mb-6">Engenheiro e Dev de Software</p>
             <nav class="space-y-4">
                 <a href="#habilidades" class="block text-zinc-300 hover:text-white transition-colors">Habilidades</a>
@@ -105,7 +205,6 @@
                 <a href="#contato" class="block text-zinc-300 hover:text-white transition-colors">Contato</a>
             </nav>
             <div class="mt-8 text-sm text-zinc-400">
-                <p><strong>Telefone:</strong> (41) 98859-5733</p>
                 <p><strong>Email:</strong> caudobruski@gmail.com</p>
             </div>
         </aside>
@@ -119,62 +218,95 @@
             <section id="habilidades" class="mb-8">
                 <h2 class="text-2xl font-semibold mb-4 section-header text-zinc-100">Habilidades Técnicas e Interação</h2>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                   
-                    <div class="flex flex-col items-center bg-zinc-950 p-6 rounded-lg border border-neutral-900">
-                        <h3 class="text-xl font-medium mb-4 text-blue-400">JavaScript Interativo</h3>
-                        <p class="text-zinc-400 text-center mb-4">Manipulação do DOM. Clique para aumentar o contador.</p>
+                <!-- Botão para abrir o conversor de moedas novamente -->
+                <button id="open-currency-btn" class="bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 transition-colors mb-6">
+                    Abrir Conversor de Moedas
+                </button>
+
+                <div class="carousel-container">
+                    <button id="carousel-btn-left" class="carousel-btn carousel-btn-left">&lsaquo;</button>
+                    <div id="carousel-wrapper" class="carousel-wrapper">
+                        <div class="carousel-item">
+                            <h3 class="text-xl font-medium mb-4 text-blue-400">JavaScript Interativo</h3>
+                            <p class="text-zinc-400 text-center mb-4">Manipulação do DOM. Clique para aumentar ou diminuir o contador.</p>
+                            <div class="flex flex-col items-center space-y-4">
+                                <button id="counter-btn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                                    Clique-me!
+                                </button>
+                                <button id="counter-btn-10x" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors">
+                                    Contar 10x!
+                                </button>
+                                <button id="counter-btn-minus-1" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">
+                                    Diminuir 1
+                                </button>
+                                <button id="counter-btn-minus-10" class="bg-red-800 text-white px-4 py-2 rounded-lg hover:bg-red-900 transition-colors">
+                                    Diminuir 10
+                                </button>
+                                <span id="counter-display" class="text-2xl font-bold text-zinc-100">0</span>
+                            </div>
+                        </div>
                         
-                        <div class="flex flex-col items-center space-y-4">
-                            <button id="counter-btn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                                Clique-me!
-                            </button>
-                            <button id="counter-btn-10x" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors">
-                                Contar 10x!
-                            </button>
-                            <span id="counter-display" class="text-2xl font-bold text-zinc-100">0</span>
+                        <div class="carousel-item">
+                            <h3 class="text-xl font-medium mb-4 text-purple-400">PHP no Backend</h3>
+                            <p class="text-zinc-400 text-center mb-4">Realiza uma adição visual com partículas.</p>
+                            <div class="flex flex-col items-center space-y-4 w-full">
+                                <input type="number" id="php-num1" placeholder="Número 1" class="w-full p-2 rounded bg-zinc-800 text-white placeholder-zinc-500 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                <input type="number" id="php-num2" placeholder="Número 2" class="w-full p-2 rounded bg-zinc-800 text-white placeholder-zinc-500 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                <button id="php-btn" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors w-full">
+                                    Somar e Visualizar
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="carousel-item">
+                            <h3 class="text-xl font-medium mb-4 text-green-400">Python no Backend</h3>
+                            <p class="text-zinc-400 text-center mb-4">Uma calculadora interativa com efeito visual.</p>
+                            <div class="flex flex-col items-center space-y-4 w-full">
+                                <input type="number" id="python-num1" placeholder="Número 1" class="w-full p-2 rounded bg-zinc-800 text-white placeholder-zinc-500 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                <input type="text" id="python-op" placeholder="Operador (+, -, *, /)" class="w-full p-2 rounded bg-zinc-800 text-white placeholder-zinc-500 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                <input type="number" id="python-num2" placeholder="Número 2" class="w-full p-2 rounded bg-zinc-800 text-white placeholder-zinc-500 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                <button id="python-btn" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors w-full">
+                                    Calcular
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="carousel-item">
+                            <h3 class="text-xl font-medium mb-4 text-fuchsia-400">Paleta de Cores Interativa</h3>
+                            <p class="text-zinc-400 text-center mb-4">Ajuste a barra para visualizar a transição de cores. O hex muda em tempo real.</p>
+                            <div id="color-block" class="w-full h-24 rounded-lg mb-4" style="background-color: #0a0a0a;"></div>
+                            <input type="range" id="color-slider" min="0" max="100" value="0" class="w-full h-2 bg-zinc-700 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-fuchsia-500">
+                            <span id="color-hex" class="mt-2 text-sm text-zinc-400">#0a0a0a</span>
+                        </div>
+
+                        <div class="carousel-item">
+                            <h3 class="text-xl font-medium mb-4 text-orange-400">Gerador de Frases Java</h3>
+                            <p class="text-zinc-400 text-center mb-4">Insira palavras e veja a mágica da concatenação.</p>
+                            <div class="flex flex-col items-center space-y-4 w-full">
+                                <input type="text" id="java-adj" placeholder="Adjetivo" class="w-full p-2 rounded bg-zinc-800 text-white placeholder-zinc-500 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                                <input type="text" id="java-noun" placeholder="Substantivo" class="w-full p-2 rounded bg-zinc-800 text-white placeholder-zinc-500 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                                <button id="java-btn" class="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 transition-colors w-full">
+                                    Gerar Frase
+                                </button>
+                                <p id="java-output" class="text-lg font-bold text-zinc-100 text-center mt-4"></p>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-item">
+                            <h3 class="text-xl font-medium mb-4 text-lime-400">Visualizador Python</h3>
+                            <p class="text-zinc-400 text-center mb-4">Demonstra a ordenação Bubble Sort com animação visual.</p>
+                            <div class="flex flex-col items-center space-y-4 w-full">
+                                <canvas id="python-canvas" width="250" height="150" class="w-full h-auto bg-zinc-800 rounded-lg border border-zinc-700"></canvas>
+                                <button id="sort-btn" class="bg-lime-600 text-white px-4 py-2 rounded-lg hover:bg-lime-700 transition-colors w-full">
+                                    Sort
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    
-                    
-                    <div class="flex flex-col items-center bg-zinc-950 p-6 rounded-lg border border-neutral-900">
-                        <h3 class="text-xl font-medium mb-4 text-purple-400">PHP no Backend</h3>
-                        <p class="text-zinc-400 text-center mb-4">Realiza uma adição visual com partículas.</p>
-                        <div class="flex flex-col items-center space-y-4 w-full">
-                            <input type="number" id="php-num1" placeholder="Número 1" class="w-full p-2 rounded bg-zinc-800 text-white placeholder-zinc-500 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-purple-500">
-                            <input type="number" id="php-num2" placeholder="Número 2" class="w-full p-2 rounded bg-zinc-800 text-white placeholder-zinc-500 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-purple-500">
-                            <button id="php-btn" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors w-full">
-                                Somar e Visualizar
-                            </button>
-                        </div>
-                    </div>
-
-                    
-                    <div class="flex flex-col items-center bg-zinc-950 p-6 rounded-lg border border-neutral-900">
-                        <h3 class="text-xl font-medium mb-4 text-green-400">Python no Backend</h3>
-                        <p class="text-zinc-400 text-center mb-4">Uma calculadora interativa com efeito visual.</p>
-                        <div class="flex flex-col items-center space-y-4 w-full">
-                            <input type="number" id="python-num1" placeholder="Número 1" class="w-full p-2 rounded bg-zinc-800 text-white placeholder-zinc-500 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-green-500">
-                            <input type="text" id="python-op" placeholder="Operador (+, -, *, /)" class="w-full p-2 rounded bg-zinc-800 text-white placeholder-zinc-500 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-green-500">
-                            <input type="number" id="python-num2" placeholder="Número 2" class="w-full p-2 rounded bg-zinc-800 text-white placeholder-zinc-500 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-green-500">
-                            <button id="python-btn" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors w-full">
-                                Calcular
-                            </button>
-                        </div>
-                    </div>
-
-                    
-                    <div class="flex flex-col items-center bg-zinc-950 p-6 rounded-lg border border-neutral-900">
-                        <h3 class="text-xl font-medium mb-4 text-fuchsia-400">Paleta de Cores Interativa</h3>
-                        <p class="text-zinc-400 text-center mb-4">Ajuste a barra para visualizar a transição de cores. O hex muda em tempo real.</p>
-                        <div id="color-block" class="w-full h-24 rounded-lg mb-4" style="background-color: #0a0a0a;"></div>
-                        <input type="range" id="color-slider" min="0" max="100" value="0" class="w-full h-2 bg-zinc-700 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-fuchsia-500">
-                        <span id="color-hex" class="mt-2 text-sm text-zinc-400">#0a0a0a</span>
-                    </div>
-
+                    <button id="carousel-btn-left" class="carousel-btn carousel-btn-left">&lsaquo;</button>
+                    <button id="carousel-btn-right" class="carousel-btn carousel-btn-right">&rsaquo;</button>
                 </div>
 
-                
                 <div id="php-effect-container" class="effect-container mt-6 hidden">
                     <p class="text-zinc-400">Processando dados...</p>
                 </div>
@@ -183,7 +315,7 @@
                 </div>
             </section>
             
-            <section id="frontend">
+            <section id="frontend" class="mt-8">
                 <h2 class="text-2xl font-semibold mb-4 section-header text-zinc-100">Linguagens de Frontend</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="bg-zinc-950 p-6 rounded-lg border border-neutral-900">
@@ -209,12 +341,61 @@
     </div>
     
     <footer class="mt-8 text-center text-zinc-500 text-sm">
-        &copy; 2024 Portfólio de Cauê Cardoso Dobruski. Todos os direitos reservados.
+        &copy; 2024 Portfólio de Cauê Dobruski. Todos os direitos reservados.
     </footer>
 
+    <!-- Floating Currency Converter Card -->
+    <div id="currency-card" class="floating-card">
+        <button id="close-btn" class="close-btn">&times;</button>
+        <h3 class="text-xl font-medium mb-4 text-emerald-400">Conversor de Moedas</h3>
+        <p class="text-zinc-400 text-center mb-4">Converta valores entre moedas usando uma API.
+            Clique e segure no círculo preto para arrastar a janela.
+        </p>
+        <div class="flex flex-col items-center space-y-4 w-full">
+            <input type="number" id="currency-amount" placeholder="Valor" class="w-full p-2 rounded bg-zinc-800 text-white placeholder-zinc-500 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+            <div class="flex space-x-2 w-full">
+                <select id="currency-from" class="w-1/2 p-2 rounded bg-zinc-800 text-white border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                    <option value="BRL">BRL - Real Brasileiro</option>
+                    <option value="USD">USD - Dólar Americano</option>
+                    <option value="EUR">EUR - Euro</option>
+                    <option value="JPY">JPY - Iene Japonês</option>
+                    <option value="CAD">CAD - Dólar Canadense</option>
+                </select>
+                <select id="currency-to" class="w-1/2 p-2 rounded bg-zinc-800 text-white border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                    <option value="USD">USD - Dólar Americano</option>
+                    <option value="BRL">BRL - Real Brasileiro</option>
+                    <option value="EUR">EUR - Euro</option>
+                    <option value="JPY">JPY - Iene Japonês</option>
+                    <option value="CAD">CAD - Dólar Canadense</option>
+                </select>
+            </div>
+            <button id="convert-btn" class="bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 transition-colors w-full">
+                Converter
+            </button>
+            <div id="currency-response" class="w-full p-2 bg-zinc-800 rounded-lg border border-zinc-700 text-sm text-center"></div>
+        </div>
+        <div id="drag-handle" class="drag-handle"></div>
+    </div>
+    
     <script>
+        const carouselWrapper = document.getElementById('carousel-wrapper');
+        const carouselBtnLeft = document.getElementById('carousel-btn-left');
+        const carouselBtnRight = document.getElementById('carousel-btn-right');
+
+        carouselBtnLeft.addEventListener('click', () => {
+            const itemWidth = carouselWrapper.querySelector('.carousel-item').offsetWidth + 24;
+            carouselWrapper.scrollBy({ left: -itemWidth, behavior: 'smooth' });
+        });
+
+        carouselBtnRight.addEventListener('click', () => {
+            const itemWidth = carouselWrapper.querySelector('.carousel-item').offsetWidth + 24;
+            carouselWrapper.scrollBy({ left: itemWidth, behavior: 'smooth' });
+        });
+
         const counterButton = document.getElementById('counter-btn');
         const counterButton10x = document.getElementById('counter-btn-10x');
+        const counterButtonMinus1 = document.getElementById('counter-btn-minus-1');
+        const counterButtonMinus10 = document.getElementById('counter-btn-minus-10');
         const counterDisplay = document.getElementById('counter-display');
         let count = 0;
         
@@ -225,6 +406,16 @@
 
         counterButton10x.addEventListener('click', () => {
             count += 10;
+            counterDisplay.textContent = count;
+        });
+        
+        counterButtonMinus1.addEventListener('click', () => {
+            count--;
+            counterDisplay.textContent = count;
+        });
+        
+        counterButtonMinus10.addEventListener('click', () => {
+            count -= 10;
             counterDisplay.textContent = count;
         });
 
@@ -247,27 +438,42 @@
             phpEffectContainer.classList.remove('hidden');
             phpEffectContainer.innerHTML = `<p class="text-zinc-400">Somando ${num1} e ${num2}...</p>`;
             
+            const containerRect = phpEffectContainer.getBoundingClientRect();
+            const centerX = containerRect.width / 2;
+            const centerY = containerRect.height / 2;
+
             for (let i = 0; i < 50; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
                 const size = Math.random() * 8 + 2;
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
-                particle.style.left = `${Math.random() * 100}%`;
-                particle.style.top = `${Math.random() * 100}%`;
+                
+                const angle = Math.random() * 2 * Math.PI;
+                const distance = Math.random() * 100 + 50;
+
+                const startX = centerX - (size / 2);
+                const startY = centerY - (size / 2);
+                const endX = centerX + Math.cos(angle) * distance;
+                const endY = centerY + Math.sin(angle) * distance;
+                
+                particle.style.left = `${startX}px`;
+                particle.style.top = `${startY}px`;
+
                 phpEffectContainer.appendChild(particle);
 
                 setTimeout(() => {
                     particle.style.opacity = '1';
-                    particle.style.transform = `translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px) scale(1)`;
+                    particle.style.transform = `translate(${endX - startX}px, ${endY - startY}px) scale(1)`;
                     setTimeout(() => {
                         particle.style.opacity = '0';
+                        particle.style.transition = 'opacity 0.5s ease-out';
                     }, 500);
                 }, 10);
             }
 
             setTimeout(() => {
-                phpEffectContainer.innerHTML = `<p class="text-green-400 text-2xl font-bold">${result}</p>`;
+                phpEffectContainer.innerHTML = `<p class="text-purple-400 text-2xl font-bold">${result}</p>`;
                 setTimeout(() => {
                     phpEffectContainer.classList.add('hidden');
                     phpEffectContainer.innerHTML = '';
@@ -325,56 +531,199 @@
         const colorSlider = document.getElementById('color-slider');
         const colorBlock = document.getElementById('color-block');
         const colorHex = document.getElementById('color-hex');
+        
+        const hsvToRgb = (h, s, v) => {
+            h /= 360;
+            let r, g, b;
+            let i = Math.floor(h * 6);
+            let f = h * 6 - i;
+            let p = v * (1 - s);
+            let q = v * (1 - f * s);
+            let t = v * (1 - (1 - f) * s);
+            switch (i % 6) {
+                case 0: r = v, g = t, b = p; break;
+                case 1: r = q, g = v, b = p; break;
+                case 2: r = p, g = v, b = t; break;
+                case 3: r = p, g = q, b = v; break;
+                case 4: r = t, g = p, b = v; break;
+                case 5: r = v, g = p, b = q; break;
+            }
+            return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+        };
 
         const toHex = (c) => {
             const hex = Math.round(c).toString(16);
             return hex.length === 1 ? "0" + hex : hex;
-        }
+        };
 
         colorSlider.addEventListener('input', (event) => {
             const value = event.target.value;
-            let startColor, endColor;
+            const hue = (value / 100) * 360;
+            const [r, g, b] = hsvToRgb(hue, 0.7, 0.9);
+            const hexColor = `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+            colorBlock.style.backgroundColor = hexColor;
+            colorHex.textContent = hexColor;
+        });
 
-            if (value <= 25) {
-                startColor = [10, 10, 10]; 
-                endColor = [139, 92, 246]; 
-                const percentage = (value / 25);
-                const newR = startColor[0] + (endColor[0] - startColor[0]) * percentage;
-                const newG = startColor[1] + (endColor[1] - startColor[1]) * percentage;
-                const newB = startColor[2] + (endColor[2] - startColor[2]) * percentage;
-                const hexColor = `#${toHex(newR)}${toHex(newG)}${toHex(newB)}`;
-                colorBlock.style.backgroundColor = hexColor;
-                colorHex.textContent = hexColor;
-            } else if (value <= 50) {
-                startColor = [139, 92, 246];
-                endColor = [34, 211, 238]; 
-                const percentage = (value - 25) / 25;
-                const newR = startColor[0] + (endColor[0] - startColor[0]) * percentage;
-                const newG = startColor[1] + (endColor[1] - startColor[1]) * percentage;
-                const newB = startColor[2] + (endColor[2] - startColor[2]) * percentage;
-                const hexColor = `#${toHex(newR)}${toHex(newG)}${toHex(newB)}`;
-                colorBlock.style.backgroundColor = hexColor;
-                colorHex.textContent = hexColor;
-            } else if (value <= 75) {
-                startColor = [34, 211, 238]; 
-                endColor = [74, 222, 128]; 
-                const percentage = (value - 50) / 25;
-                const newR = startColor[0] + (endColor[0] - startColor[0]) * percentage;
-                const newG = startColor[1] + (endColor[1] - startColor[1]) * percentage;
-                const newB = startColor[2] + (endColor[2] - startColor[2]) * percentage;
-                const hexColor = `#${toHex(newR)}${toHex(newG)}${toHex(newB)}`;
-                colorBlock.style.backgroundColor = hexColor;
-                colorHex.textContent = hexColor;
+        const javaButton = document.getElementById('java-btn');
+        const javaAdjInput = document.getElementById('java-adj');
+        const javaNounInput = document.getElementById('java-noun');
+        const javaOutput = document.getElementById('java-output');
+
+        javaButton.addEventListener('click', () => {
+            const adj = javaAdjInput.value || 'incrível';
+            const noun = javaNounInput.value || 'projeto';
+            javaOutput.textContent = `A minha jornada em código é como um ${adj} ${noun}.`;
+        });
+
+        const sortButton = document.getElementById('sort-btn');
+        const canvas = document.getElementById('python-canvas');
+        const ctx = canvas.getContext('2d');
+        const numBars = 20;
+        let data = [];
+        let sorting = false;
+        let i = 0;
+        let j = 0;
+
+        function initializeData() {
+            data = [];
+            for (let k = 0; k < numBars; k++) {
+                data.push(Math.floor(Math.random() * 100) + 1);
+            }
+            i = 0;
+            j = 0;
+            sorting = false;
+            drawBars(data, -1, -1);
+        }
+
+        function drawBars(arr, bar1, bar2) {
+            const barWidth = canvas.width / arr.length;
+            const maxHeight = canvas.height;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#1a1a1a';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            for (let k = 0; k < arr.length; k++) {
+                const barHeight = (arr[k] / 100) * maxHeight;
+                ctx.fillStyle = k === bar1 || k === bar2 ? '#4ade80' : '#d8b4fe';
+                ctx.fillRect(k * barWidth, maxHeight - barHeight, barWidth - 1, barHeight);
+            }
+        }
+
+        function bubbleSortStep() {
+            if (!sorting) return;
+
+            drawBars(data, j, j + 1);
+
+            if (data[j] > data[j + 1]) {
+                [data[j], data[j + 1]] = [data[j + 1], data[j]];
+            }
+
+            j++;
+            if (j >= data.length - i - 1) {
+                j = 0;
+                i++;
+            }
+
+            if (i < data.length - 1) {
+                requestAnimationFrame(bubbleSortStep);
             } else {
-                startColor = [74, 222, 128]; 
-                endColor = [252, 165, 165]; 
-                const percentage = (value - 75) / 25;
-                const newR = startColor[0] + (endColor[0] - startColor[0]) * percentage;
-                const newG = startColor[1] + (endColor[1] - startColor[1]) * percentage;
-                const newB = startColor[2] + (endColor[2] - startColor[2]) * percentage;
-                const hexColor = `#${toHex(newR)}${toHex(newG)}${toHex(newB)}`;
-                colorBlock.style.backgroundColor = hexColor;
-                colorHex.textContent = hexColor;
+                sorting = false;
+                drawBars(data, -1, -1);
+            }
+        }
+
+        sortButton.addEventListener('click', () => {
+            if (!sorting) {
+                initializeData();
+                sorting = true;
+                bubbleSortStep();
+            }
+        });
+
+        window.onload = initializeData;
+
+        const currencyCard = document.getElementById('currency-card');
+        const dragHandle = document.getElementById('drag-handle');
+        const closeBtn = document.getElementById('close-btn');
+        const convertBtn = document.getElementById('convert-btn');
+        const amountInput = document.getElementById('currency-amount');
+        const fromSelect = document.getElementById('currency-from');
+        const toSelect = document.getElementById('currency-to');
+        const responseDiv = document.getElementById('currency-response');
+        const openCurrencyBtn = document.getElementById('open-currency-btn');
+        
+        let isDragging = false;
+        let initialX, initialY;
+        let initialCardLeft, initialCardTop;
+
+        closeBtn.addEventListener('click', () => {
+            currencyCard.style.display = 'none';
+        });
+        dragHandle.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            initialX = e.clientX;
+            initialY = e.clientY;
+            initialCardLeft = currencyCard.offsetLeft;
+            initialCardTop = currencyCard.offsetTop;
+            currencyCard.style.cursor = 'grabbing';
+            currencyCard.style.transition = 'none';
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            const dx = e.clientX - initialX;
+            const dy = e.clientY - initialY;
+            currencyCard.style.left = `${initialCardLeft + dx}px`;
+            currencyCard.style.top = `${initialCardTop + dy}px`;
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+            currencyCard.style.cursor = 'grab';
+        });
+        
+        openCurrencyBtn.addEventListener('click', () => {
+            currencyCard.style.display = 'block';
+        });
+
+        convertBtn.addEventListener('click', async () => {
+            const amount = parseFloat(amountInput.value);
+            const from = fromSelect.value;
+            const to = toSelect.value;
+            
+            if (isNaN(amount) || amount <= 0) {
+                responseDiv.textContent = 'Por favor, insira um valor válido.';
+                return;
+            }
+
+            responseDiv.textContent = 'Convertendo...';
+
+            const url = `https://open.er-api.com/v6/latest/${from}`;
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`Erro de rede: ${response.statusText}`);
+                }
+                const data = await response.json();
+                
+                const rate = data.rates[to];
+                if (rate) {
+                    const result = amount * rate;
+                    const formattedResult = new Intl.NumberFormat('pt-BR', {
+                        style: 'currency',
+                        currency: to
+                    }).format(result);
+                    responseDiv.textContent = `${amount} ${from} = ${formattedResult}`;
+                } else {
+                    responseDiv.textContent = 'Moeda de destino não encontrada.';
+                }
+
+            } catch (error) {
+                responseDiv.textContent = `Erro na conversão: ${error.message}`;
+                console.error('Erro na requisição da API de moedas:', error);
             }
         });
     </script>
