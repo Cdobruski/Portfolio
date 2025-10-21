@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfólio de Desenvolvimento</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-900 text-gray-200 p-4 sm:p-8">
+    <h1 class="sr-only">Portfólio de Cauê Dobruski</h1>
+    <div class="container">
+        <aside class="sidebar">
+            <h2 class="text-3xl font-bold mb-4 text-zinc-100">Cauê Dobruski</h2>
+            <p class="text-sm text-zinc-400 mb-6">Engenheiro e Dev de Software</p>
+            <nav class="space-y-4">
+                <a href="#habilidades" class="block text-zinc-300 hover:text-white transition-colors">Habilidades</a>
+                <a href="#frontend" class="block text-zinc-300 hover:text-white transition-colors">Frontend</a>
+                <a href="#contato" class="block text-zinc-300 hover:text-white transition-colors">Contato</a>
+            </nav>
+            <div class="mt-8 text-sm text-zinc-400">
+                <p><strong>Email:</strong> caudobruski@gmail.com</p>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="mb-8">
+                <h1 class="text-4xl font-bold text-zinc-100">Portfólio de Desenvolvimento</h1>
+                <p class="mt-2 text-zinc-400">Exemplos de minhas habilidades em diversas linguagens de programação.</p>
+            </header>
+
+            <section id="habilidades" class="mb-8">
+                <h2 class="text-2xl font-semibold mb-4 section-header text-zinc-100">Habilidades Técnicas e Interação</h2>
+
+                <button id="open-currency-btn" class="bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 transition-colors mb-6">
+                    Abrir Conversor de Moedas
+                </button>
+
+                <div class="carousel-container">
+                    <button id="carousel-btn-left" class="carousel-btn carousel-btn-left">&lsaquo;</button>
+                    <div id="carousel-wrapper" class="carousel-wrapper">
+                        <div class="carousel-item">
+                            <h3 class="text-xl font-medium mb-4 text-blue-400">JavaScript Interativo</h3>
+                            <p class="text-zinc-400 text-center mb-4">Manipulação do DOM. Clique para aumentar ou diminuir o contador.</p>
+                            <div class="flex flex-col items-center space-y-4">
+                                <button id="counter-btn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                                    Clique-me!
+                                </button>
+                                <button id="counter-btn-10x" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors">
+                                    Contar 10x!
+                                </button>
+                                <button id="counter-btn-minus-1" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">
+                                    Diminuir 1
+                                </button>
+                                <button id="counter-btn-minus-10" class="bg-red-800 text-white px-4 py-2 rounded-lg hover:bg-red-900 transition-colors">
+                                    Diminuir 10
+                                </button>
+                                <span id="counter-display" class="text-2xl font-bold text-zinc-100">0</span>
+                            </div>
+                        </div>
+
+                        <div class="carousel-item">
+                            <h3 class="text-xl font-medium mb-4 text-purple-400">Simulação de PHP</h3>
+                            <p class="text-zinc-400 text-center mb-4">Uma calculadora com efeitos visuais para demonstrar a soma.</p>
+                            <div class="flex flex-col items-center space-y-4 w-full">
+                                <input type="number" id="php-num1" placeholder="Número 1" class="w-full p-2 rounded bg-zinc-800 text-white placeholder-zinc-500 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                <input type="number" id="php-num2" placeholder="Número 2" class="w-full p-2 rounded bg-zinc-800 text-white placeholder-zinc-500 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                <button id="php-btn" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors w-full">
+                                    Somar e Visualizar
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="carousel-item">
+                            <h3 class="text-xl font-medium mb-4 text-green-400">Simulação de Python</h3>
+                            <p class="text-zinc-400 text-center mb-4">Calculadora interativa com um efeito visual de anéis.</p>
+                            <div class="flex flex-col items-center space-y-4 w-full">
+                                <input type="number" id="python-num1" placeholder="Número 1" class="w-full p-2 rounded bg-zinc-800 text-white placeholder-zinc-500 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                <input type="text" id="python-op" placeholder="Operador (+, -, *, /)" class="w-full p-2 rounded bg-zinc-800 text-white placeholder-zinc-500 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                <input type="number" id="python-num2" placeholder="Número 2" class="w-full p-2 rounded bg-zinc-800 text-white placeholder-zinc-500 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                <button id="python-btn" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors w-full">
+                                    Calcular
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="carousel-item">
+                            <h3 class="text-xl font-medium mb-4 text-fuchsia-400">Paleta de Cores Interativa</h3>
+                            <p class="text-zinc-400 text-center mb-4">Ajuste a barra para visualizar a transição de cores. O hex muda em tempo real.</p>
+                            <div id="color-block" class="w-full h-24 rounded-lg mb-4" style="background-color: #0a0a0a;"></div>
+                            <input type="range" id="color-slider" min="0" max="100" value="0" class="w-full h-2 bg-zinc-700 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-fuchsia-500">
+                            <span id="color-hex" class="mt-2 text-sm text-zinc-400">#0a0a0a</span>
+                        </div>
+
+                        <div class="carousel-item">
+                            <h3 class="text-xl font-medium mb-4 text-orange-400">Simulação de Java</h3>
+                            <p class="text-zinc-400 text-center mb-4">Demonstra a concatenação de strings com um gerador de frases.</p>
+                            <div class="flex flex-col items-center space-y-4 w-full">
+                                <input type="text" id="java-adj" placeholder="Adjetivo" class="w-full p-2 rounded bg-zinc-800 text-white placeholder-zinc-500 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                                <input type="text" id="java-noun" placeholder="Substantivo" class="w-full p-2 rounded bg-zinc-800 text-white placeholder-zinc-500 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                                <button id="java-btn" class="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 transition-colors w-full">
+                                    Gerar Frase
+                                </button>
+                                <p id="java-output" class="text-lg font-bold text-zinc-100 text-center mt-4"></p>
+                            </div>
+                        </div>
+
+                        <div class="carousel-item">
+                            <h3 class="text-xl font-medium mb-4 text-lime-400">Visualizador de Ordenação</h3>
+                            <p class="text-zinc-400 text-center mb-4">Animação da ordenação Bubble Sort com barras.</p>
+                            <div class="flex flex-col items-center space-y-4 w-full">
+                                <canvas id="python-canvas" width="250" height="150" class="w-full h-auto bg-zinc-800 rounded-lg border border-zinc-700"></canvas>
+                                <button id="sort-btn" class="bg-lime-600 text-white px-4 py-2 rounded-lg hover:bg-lime-700 transition-colors w-full">
+                                    Ordenar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="carousel-btn-right" class="carousel-btn carousel-btn-right">&rsaquo;</button>
+                </div>
+
+                <div id="php-effect-container" class="effect-container mt-6 hidden">
+                    <p class="text-zinc-400">Processando dados...</p>
+                </div>
+                <div id="python-effect-container" class="effect-container mt-6 hidden">
+                    <p class="text-zinc-400">Executando...</p>
+                </div>
+            </section>
+
+            <section id="frontend" class="mt-8">
+                <h2 class="text-2xl font-semibold mb-4 section-header text-zinc-100">Linguagens de Frontend</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-zinc-950 p-6 rounded-lg border border-neutral-900">
+                        <h3 class="text-xl font-medium mb-2 text-red-400">HTML (Estrutura)</h3>
+                        <p class="text-zinc-400">
+                            Todo o conteúdo, títulos, botões e seções são estruturados com HTML. Ele é o esqueleto fundamental de qualquer site.
+                        </p>
+                    </div>
+                    <div class="bg-zinc-950 p-6 rounded-lg border border-neutral-900">
+                        <h3 class="text-xl font-medium mb-2 text-cyan-400">CSS (Estilo)</h3>
+                        <p class="text-zinc-400">
+                            A aparência visual, cores, fontes, espaçamento e o layout responsivo são controlados pelo CSS. Usamos o framework Tailwind CSS para criar este design minimalista.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contato" class="mt-8 text-center text-zinc-400">
+                <p class="text-lg">Para mais informações, entre em contato através dos dados na barra lateral.</p>
+            </section>
+
+        </main>
+    </div>
+
+    <footer class="mt-8 text-center text-zinc-500 text-sm">
+        &copy; 2024 Portfólio de Cauê Dobruski. Todos os direitos reservados.
+    </footer>
+    <div id="currency-card" class="floating-card">
+        <button id="close-btn" class="close-btn">&times;</button>
+        <h3 class="text-xl font-medium mb-4 text-emerald-400">Conversor de Moedas</h3>
+        <p class="text-zinc-400 text-center mb-4">Converta valores entre moedas usando uma API.
+            Clique e segure no circulo preto para mover o cartão.
+        </p>
+        <div class="flex flex-col items-center space-y-4 w-full">
+            <input type="number" id="currency-amount" placeholder="Valor" class="w-full p-2 rounded bg-zinc-800 text-white placeholder-zinc-500 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+            <div class="flex space-x-2 w-full">
+                <select id="currency-from" class="w-1/2 p-2 rounded bg-zinc-800 text-white border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                    <option value="BRL">BRL - Real Brasileiro</option>
+                    <option value="USD">USD - Dólar Americano</option>
+                    <option value="EUR">EUR - Euro</option>
+                    <option value="JPY">JPY - Iene Japonês</option>
+                    <option value="CAD">CAD - Dólar Canadense</option>
+                </select>
+                <select id="currency-to" class="w-1/2 p-2 rounded bg-zinc-800 text-white border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                    <option value="USD">USD - Dólar Americano</option>
+                    <option value="BRL">BRL - Real Brasileiro</option>
+                    <option value="EUR">EUR - Euro</option>
+                    <option value="JPY">JPY - Iene Japonês</option>
+                    <option value="CAD">CAD - Dólar Canadense</option>
+                </select>
+            </div>
+            <button id="convert-btn" class="bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 transition-colors w-full">
+                Converter
+            </button>
+            <div id="currency-response" class="w-full p-2 bg-zinc-800 rounded-lg border border-zinc-700 text-sm text-center"></div>
+        </div>
+        <div id="drag-handle" class="drag-handle"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
